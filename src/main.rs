@@ -53,8 +53,6 @@ fn main() {
         }
     };
 
-
-
     // Parse the third line into num_iters
     let num_iters: i32 = match lines[2].trim().parse() {
         Ok(value) => value,
@@ -68,6 +66,13 @@ fn main() {
     println!("num_cols: {}", num_cols);
     println!("num_iters: {}", num_iters);
     
+    // Create and print the 2D grid of 'x's
+    for _ in 0..num_rows {
+        for _ in 0..num_cols {
+            print!("x ");
+        }
+        println!(); // Move to the next row
+    }
  
 }
 
