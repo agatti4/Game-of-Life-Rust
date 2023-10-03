@@ -1,11 +1,22 @@
 use std::env;
 use std::fs;
 
-fn get_input() -> Vec<String> {
-    // Get the first command-line argument (assuming it's the file path)
+fn get_input() -> Result<Vec<String>, String> {
     let args: Vec<String> = env::args().collect();
 
-    return args;
+    if args.len() != 2 {
+        return Err("Usage: <file_path>".to_string());
+    }
+
+    let file_path = &args[1];
+    println!("In file {}", file_path);
+
+    let contents = fs::read_to_string(file_path)
+        .map_err(|e| format!("Error reading file: {}", e))?;
+
+    let lines: Vec<String> = contents.lines().map(ToString::to_string).collect();
+
+    Ok(lines)
 }
 
 fn parse_file_content(lines: Vec<String>) -> Result<(i32, i32, i32), String> {
@@ -50,21 +61,16 @@ fn start_game(num_rows: i32, num_cols: i32, num_iters: i32) {
 }
 
 fn main() {
-    let args = get_input();
-
-    if args.len() != 2 {
-        eprintln!("Usage: {} <file_path>", args[0]);
-        return;
-    } 
-
-    let file_path : &String = &args[1];
-    println!("In file {}", file_path);
-
-    let contents : String = fs::read_to_string(&file_path)
-        .expect("Should have been able to read the file");
-
-    let lines: Vec<String> = contents.lines().map(|s| s.to_string()).collect();
+    // Get input file
+    let lines: Vec<String> = match get_input() {
+        Ok(lines) => lines,
+        Err(error) => {
+            eprintln!("{}", error);
+            return;
+        }
+    }; 
     
+    // Parse input file
     let (num_rows, num_cols, num_iters) = match parse_file_content(lines) {
         Ok((num_rows, num_cols, num_iters)) => (num_rows, num_cols, num_iters),
         Err(error) => {
@@ -72,7 +78,8 @@ fn main() {
             return;
         }
     };
-
+    
+    // Start game with data from file
     start_game(num_rows, num_cols, num_iters);
 
 }
