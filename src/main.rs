@@ -4,7 +4,7 @@ use std::fs;
 fn get_input() -> Result<Vec<String>, String> {
     let args: Vec<String> = env::args().collect();
 
-    if args.len() != 2 {
+    if args.len() != 4 { 
         return Err("Usage: <file_path>".to_string());
     }
 
@@ -74,6 +74,14 @@ fn print_board(grid: &Vec<Vec<char>>) {
 }
 
 fn start_game(num_rows: i32, num_cols: i32, num_iters: i32, grid: &Vec<Vec<char>>) {
+    let args: Vec<String> = env::args().collect();
+
+    let wrap = &args[2];
+    println!("Wrap Type: {}", wrap);
+
+    let show = &args[3];
+    println!("Show Type: {}", show);
+
     println!("num_rows: {}", num_rows);
     println!("num_cols: {}", num_cols);
     println!("num_iters: {}", num_iters);
@@ -113,11 +121,3 @@ fn main() {
     start_game(num_rows, num_cols, num_iters, &grid);
 
 }
-
-// Ask for input file that contains num rows, num cols, num iterations
-
-// Create a array based on numbers of rows and columns
-
-// Place live/dead
-
-// Run Game
