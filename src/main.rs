@@ -63,18 +63,23 @@ fn create_init_board(num_rows: i32, num_cols: i32, lines: &Vec<String>) -> Resul
     Ok(grid)
 }
 
-fn start_game(num_rows: i32, num_cols: i32, num_iters: i32, grid: &Vec<Vec<char>>) {
-    println!("num_rows: {}", num_rows);
-    println!("num_cols: {}", num_cols);
-    println!("num_iters: {}", num_iters);
-
+fn print_board(grid: &Vec<Vec<char>>) {
     for row in grid {
         for cell in row {
             print!("{}", cell);
         }
         println!();
     }
-   
+    println!();
+}
+
+fn start_game(num_rows: i32, num_cols: i32, num_iters: i32, grid: &Vec<Vec<char>>) {
+    println!("num_rows: {}", num_rows);
+    println!("num_cols: {}", num_cols);
+    println!("num_iters: {}", num_iters);
+
+    print_board(grid);
+
 }
 
 fn main() {
