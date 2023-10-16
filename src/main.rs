@@ -3,8 +3,11 @@ use std::fs;
 use std::thread::sleep;
 use std::time::Duration;
 use std::process::Command;
+use std::time::Instant;
 
 fn main() {
+    let start_time = Instant::now();
+
     // Get input file
     let lines: Vec<String> = match get_input() {
         Ok(lines) => lines,
@@ -34,6 +37,12 @@ fn main() {
     // Start game with data from file
     start_game(num_rows, num_cols, num_iters, & mut grid);
 
+    let end_time = Instant::now();
+    let elapsed_time = end_time.duration_since(start_time);
+
+    let elapsed_seconds = elapsed_time.as_secs_f64();
+
+    println!("For {} Iterations Elapsed Time: {:.6} Seconds", lines[2], elapsed_seconds);
 }
 
 fn get_input() -> Result<Vec<String>, String> {
