@@ -188,10 +188,10 @@ fn start_game(num_rows: i32, num_cols: i32, num_iters: i32, grid: &mut Vec<Vec<c
 }
 
 fn get_next_board(grid_final: &mut Vec<Vec<char>>, grid: &mut Vec<Vec<char>>, num_rows: i32, num_cols: i32, num_iters: i32, wrap: i32, show: i32) {
-    let mut count: i32 = 0;
-    let mut curr_dead: i32 = 0;
+    let mut count: i32;
+    let mut curr_dead: i32;
 
-    for k in 0..num_iters {
+    for _ in 0..num_iters {
         for i in 0..num_rows as usize{
             for j in 0..num_cols as usize{
                 if grid[i][j] == '-' {
@@ -213,7 +213,6 @@ fn get_next_board(grid_final: &mut Vec<Vec<char>>, grid: &mut Vec<Vec<char>>, nu
                 } else {
                     grid_final[i][j] = '-';
                 }
-                count = 0;
             }   
         }
 
@@ -231,7 +230,7 @@ fn get_next_board(grid_final: &mut Vec<Vec<char>>, grid: &mut Vec<Vec<char>>, nu
 fn get_no_wrap_count(grid: &Vec<Vec<char>>, num_rows: usize, num_cols: usize, i: usize, j: usize) -> i32 {
     let mut count = 0;
 
-    // Checks counterclockwise starting from the bottom neighbor
+    // Checks counterclockwise starting from bottom neighbor
     if i + 1 < num_rows {
         if grid[i + 1][j] == '@' {
             count += 1;
@@ -247,27 +246,27 @@ fn get_no_wrap_count(grid: &Vec<Vec<char>>, num_rows: usize, num_cols: usize, i:
             count += 1;
         }
     }
-    if i - 1 >= 0 && j + 1 < num_cols {
+    if i > 0 && j + 1 < num_cols {
         if grid[i - 1][j + 1] == '@' {
             count += 1;
         }
     }
-    if i - 1 >= 0 {
+    if i > 0 {
         if grid[i - 1][j] == '@' {
             count += 1;
         }
     }
-    if i - 1 >= 0 && j - 1 >= 0 {
+    if i > 0 && j > 0 {
         if grid[i - 1][j - 1] == '@' {
             count += 1;
         }
     }
-    if j - 1 >= 0 {
+    if j > 0 {
         if grid[i][j - 1] == '@' {
             count += 1;
         }
     }
-    if i + 1 < num_rows && j - 1 >= 0 {
+    if i + 1 < num_rows && j > 0 {
         if grid[i + 1][j - 1] == '@' {
             count += 1;
         }
@@ -275,6 +274,7 @@ fn get_no_wrap_count(grid: &Vec<Vec<char>>, num_rows: usize, num_cols: usize, i:
 
     count
 }
+
 
 fn get_wrap_count(grid: &Vec<Vec<char>>, num_rows: usize, num_cols: usize, i: usize, j: usize) -> i32 {
     let mut count = 0;
