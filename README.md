@@ -14,7 +14,7 @@
  * Output: If hide prints the final board and the total time to run, 
    if show outputs each iteration of the board and the total time to run.
 
-   Example run commands:
-   cargo build
-   cargo run gliderGun.txt wrap show fast
-   cargo run gliderGun.txt nowrap hide 
+ * Example run commands:
+ * First do: cargo build
+ * cargo run gliderGun.txt wrap show fast
+ * cargo run gliderGun.txt nowrap hide 
