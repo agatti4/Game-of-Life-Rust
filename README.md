@@ -17,4 +17,11 @@
  * Example run commands:
  * First do: cargo build
  * cargo run gliderGun.txt wrap show fast
- * cargo run gliderGun.txt nowrap hide 
+ * cargo run gliderGun.txt nowrap hide  
+&nbsp;
+ * Added support for docker
+ * To run the docker image run: docker build -t gol .
+ * Then run it using: docker run my_rust_app
+
+    This will do the default of cargo run gliderGun.txt wrap show fast
+ * You can also run with any of the flags such as: docker run my_rust_app gliderGun.txt nowrap hide
